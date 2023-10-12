@@ -1,3 +1,4 @@
+//message objects creation
 const generateMessage = (username,text)=>{
     return{
         username,
@@ -14,6 +15,7 @@ const generateLocationMessage = (username,url)=>{
     }
 }
 
+//export message objects
 module.exports = {
     generateMessage,
     generateLocationMessage

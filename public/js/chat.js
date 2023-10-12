@@ -1,3 +1,4 @@
+// initialize socket
 const socket = io()
 
 //elements
@@ -15,6 +16,7 @@ const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML
 //options
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true })
 
+//autoscroll
 const autoscroll=()=>{
      //New message element
      const $newMessage = $messages.lastElementChild
@@ -50,12 +52,11 @@ socket.on('message', (msg) => {
     autoscroll()
 })
 
-
 socket.on('locationMessage', (msg) => {
     console.log(msg);
     const html = Mustache.render(locationMessageTemplate, {
         username: msg.username,
-        url: msg,
+        url: msg.url,
         createdAt: moment(msg.createdAt).format('h:mm a')
     })
     $messages.insertAdjacentHTML('beforeend', html)
@@ -70,7 +71,7 @@ socket.on('roomData',({room, users})=>{
     document.querySelector('#sidebar').innerHTML = html
 })
 
-//button events
+//button events listeners
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
